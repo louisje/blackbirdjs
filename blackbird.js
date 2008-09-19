@@ -285,6 +285,8 @@
 					document.getElementById( IDs.checkbox ).checked = true; 
 				}
 
+        scrollToBottom();
+
 				window[ NAMESPACE ].init = function() {
 					show();
 					window[ NAMESPACE ].error( [ '<b>', NAMESPACE, '</b> can only be initialized once' ] );
