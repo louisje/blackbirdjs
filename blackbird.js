@@ -214,7 +214,9 @@
 		}
 		props = props.join( ',' );
 		
-		document.cookie = [ 'blackbird=({', props, '});' ].join( '' );
+		var expiration = new Date();
+		expiration.setDate( expiration.getDate() + 14 );
+		document.cookie = [ 'blackbird={', props, '}; expires=', expiration.toUTCString() ,';' ].join( '' );
 
 		var newClass = [];
 		for ( word in classes ) {
@@ -224,9 +226,9 @@
 	}
 	
 	function getState() {
-		var re = new RegExp( /blackbird=(\({\S+}\))(;|\b|$)/ ); 
+		var re = new RegExp( /blackbird=({[^;]+})(;|\b|$)/ );
 		var match = re.exec( document.cookie );
-		return ( match && match[ 1 ] ) ? eval( match[ 1 ] ) : { pos:null, size:null, load:null };
+		return ( match && match[ 1 ] ) ? eval( '(' + match[ 1 ] + ')' ) : { pos:null, size:null, load:null };
 	}
 	
 	//event handler for 'keyup' event for window
