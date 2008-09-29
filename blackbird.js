@@ -287,7 +287,7 @@
 					document.getElementById( IDs.checkbox ).checked = true; 
 				}
 
-        scrollToBottom();
+				scrollToBottom();
 
 				window[ NAMESPACE ].init = function() {
 					show();
