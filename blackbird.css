@@ -53,7 +53,7 @@
 	#blackbird .main div.left { background-position:0 -30px; width:11px; _width:0; }
 	#blackbird .main div.mainBody { background-position:40% -40px; _background-color:#000; _filter:alpha(opacity='93'); }
 		#blackbird .main .mainBody ol { height:100%; overflow:auto; width:100%; list-style-type:none; margin:0; padding:0; }
-		#blackbird .main .mainBody ol li { border-bottom:1px solid #333; padding:4px 0 0 20px; color:#CCC; margin: 0 8px; }
+		#blackbird .main .mainBody ol li { border-bottom:1px solid #333; padding:4px 0 2px 20px; color:#CCC; margin: 0 8px; }
 		  #blackbird .main .mainBody ol li span { background:url(blackbird_icons.png) no-repeat 0 0; height:16px; width:16px; float:left; margin: -2px 4px 0 -20px; _display:inline; *margin: 0 -12px 0 4px; }
 		
 #blackbird .main .mainBody ol li.error span   { background-position:0 0; }
