@@ -295,7 +295,7 @@
 
 				window[ NAMESPACE ].init = function() {
 					show();
-					//window[ NAMESPACE ].error( [ '<b>', NAMESPACE, '</b> can only be initialized once' ] );
+					window[ NAMESPACE ].error( [ '<b>', NAMESPACE, '</b> can only be initialized once' ] );
 				}
 
 				addEvent( window, 'unload', function() {
@@ -307,17 +307,15 @@
 				});
 			},
 		toggle:
-		  function() {
-		    ( isVisible() ) ? hide() : show();
-		  },
+			function() { ( isVisible() ) ? hide() : show(); },
 		resize:
-		  function() { resize(); },
+			function() { resize(); },
 		clear:
-		  function() { clear(); },
+			function() { clear(); },
 		move:
-		  function() { reposition(); },
+			function() { reposition(); },
 		debug: 
-			function( msg ) { addMessage( 'debug', msg );	},
+			function( msg ) { addMessage( 'debug', msg ); },
 		warn:
 			function( msg ) { addMessage( 'warn', msg ); },
 		info:
