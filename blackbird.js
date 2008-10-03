@@ -171,7 +171,10 @@
 	}
 			
 	function show() {
-	  bbird.style.display = 'block';
+		var body = document.getElementsByTagName( 'BODY' )[ 0 ];
+		body.removeChild( bbird );
+		body.appendChild( bbird );
+		bbird.style.display = 'block';
 	}
 	
 	//sets the position
@@ -258,6 +261,7 @@
 		} else obj.addEventListener( type, fn, false );
 	}
 	function removeEvent( obj, type, fn ) {
+		var obj = ( obj.constructor === String ) ? document.getElementById( obj ) : obj;
 		if ( obj.detachEvent ) {
 			obj.detachEvent( 'on' + type, obj[ type + fn ] );
 			obj[ type + fn ] = null;
@@ -278,8 +282,8 @@
 				addEvent( IDs.checkbox, 'click', clickVis );
 				addEvent( IDs.filters, 'click', clickFilter );
 				addEvent( IDs.controls, 'click', clickControl );
-				addEvent(document, 'keyup', readKey);
-				
+				addEvent( document, 'keyup', readKey);
+
 				resize( state.size );
 				reposition( state.pos );
 				if ( state.load ) {
@@ -291,19 +295,25 @@
 
 				window[ NAMESPACE ].init = function() {
 					show();
-					window[ NAMESPACE ].error( [ '<b>', NAMESPACE, '</b> can only be initialized once' ] );
+					//window[ NAMESPACE ].error( [ '<b>', NAMESPACE, '</b> can only be initialized once' ] );
 				}
+
+				addEvent( window, 'unload', function() {
+					removeEvent( window, 'load', window[ NAMESPACE ].init );
+					removeEvent( IDs.checkbox, 'click', clickVis );
+					removeEvent( IDs.filters, 'click', clickFilter );
+					removeEvent( IDs.controls, 'click', clickControl );
+					removeEvent( document, 'keyup', readKey );
+				});
 			},
-		addEvent:
-		  function() { addEvent.apply( null, arguments ); },
+		toggle:
+		  function() {
+		    ( isVisible() ) ? hide() : show();
+		  },
 		resize:
 		  function() { resize(); },
 		clear:
 		  function() { clear(); },
-		hide:
-		  function() { hide(); },
-		show:
-		  function() { show(); },
 		move:
 		  function() { reposition(); },
 		debug: 
@@ -331,5 +341,7 @@
 				}
 				return currentTime;
 			}
-	} 
+	}
+
+	addEvent( window, 'load', window[ NAMESPACE ].init );
 })();
