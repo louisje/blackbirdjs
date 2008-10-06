@@ -43,7 +43,7 @@
 	
 #blackbird .header div { float:left; _background-color:#000; }
 	#blackbird .header div.left { background-position:top left; height:40px; _height:16px; }
-		#blackbird .header .left div.filters { padding:16px 0 0 19px; float:left; _padding:6px 8px; }
+		#blackbird .header .left div.filters { margin-left: -4px; padding:16px 0 0 19px; float:left; _padding:6px 8px; }
 	#blackbird .header div.right { background-position:top right; height:40px; width:150px; _width:122px; _height:16px; }
 		#blackbird .header .right div.controls { padding:16px 24px 0 0; float:right; _padding:6px 8px; }
 		#blackbird .header .right .controls span { margin:0; }
@@ -52,9 +52,9 @@
 #blackbird .main div { float:left; }
 	#blackbird .main div.left { background-position:0 -30px; width:11px; _width:0; }
 	#blackbird .main div.mainBody { background-position:40% -40px; _background-color:#000; _filter:alpha(opacity='93'); }
-		#blackbird .main .mainBody ol { height:100%; overflow:auto; width:100%; list-style-type:none; margin:0; padding:0; }
-		#blackbird .main .mainBody ol li { border-bottom:1px solid #333; padding:4px 0 2px 20px; color:#CCC; margin: 0 8px; _text-indent: -2px; }
-		  #blackbird .main .mainBody ol li span { background:url(blackbird_icons.png) no-repeat 0 0; height:16px; width:16px; display:block; float:left; margin: -2px 4px 0 -20px; _display:inline; }
+		#blackbird .main .mainBody ol { line-height: 1.45; height:100%; overflow:auto; width:100%; list-style-type:none; margin:0; padding:0; }
+		#blackbird .main .mainBody ol li { padding:1px 4px 1px 30px; border-bottom: 1px solid #333; color:#CCC; margin: 2px 2px; _text-indent: -2px; }
+		  #blackbird .main .mainBody ol li span { background:url(blackbird_icons.png) no-repeat 0 0; border: 1px solid #333; height:16px; width:16px; display:block; float:left; margin: -2px 0 1px -25px; _display:inline; }
 		
 #blackbird .main .mainBody ol li.error span   { background-position:0 0; }
 #blackbird .main .mainBody ol li.warn span    { background-position:0 -16px; }
