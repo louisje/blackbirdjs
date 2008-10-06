@@ -1,7 +1,7 @@
 /*
   Blackbird - Open Source JavaScript Logging Utility
   Author: G Scott Olson
-  Web: http://code.google.com/p/blackbirdjs/
+  Web: http://blackbirdjs.googlecode.com/
        http://www.gscottolson.com/blackbird/
 */
 ( function() {
@@ -268,44 +268,7 @@
 	  } else obj.removeEventListener( type, fn, false );
 	}
 
-	
 	window[ NAMESPACE ] = {
-		init:
-			function() {
-				var body = document.getElementsByTagName( 'BODY' )[ 0 ];
-				bbird = body.appendChild( generateMarkup() );
-				outputList = bbird.getElementsByTagName( 'OL' )[ 0 ];
-				
-				backgroundImage();
-				
-				//add events
-				addEvent( IDs.checkbox, 'click', clickVis );
-				addEvent( IDs.filters, 'click', clickFilter );
-				addEvent( IDs.controls, 'click', clickControl );
-				addEvent( document, 'keyup', readKey);
-
-				resize( state.size );
-				reposition( state.pos );
-				if ( state.load ) {
-					show();
-					document.getElementById( IDs.checkbox ).checked = true; 
-				}
-
-				scrollToBottom();
-
-				window[ NAMESPACE ].init = function() {
-					show();
-					window[ NAMESPACE ].error( [ '<b>', NAMESPACE, '</b> can only be initialized once' ] );
-				}
-
-				addEvent( window, 'unload', function() {
-					removeEvent( window, 'load', window[ NAMESPACE ].init );
-					removeEvent( IDs.checkbox, 'click', clickVis );
-					removeEvent( IDs.filters, 'click', clickFilter );
-					removeEvent( IDs.controls, 'click', clickControl );
-					removeEvent( document, 'keyup', readKey );
-				});
-			},
 		toggle:
 			function() { ( isVisible() ) ? hide() : show(); },
 		resize:
@@ -341,5 +304,40 @@
 			}
 	}
 
-	addEvent( window, 'load', window[ NAMESPACE ].init );
+	addEvent( window, 'load', 
+		/* initialize Blackbird when the page loads */
+		function() {
+			var body = document.getElementsByTagName( 'BODY' )[ 0 ];
+			bbird = body.appendChild( generateMarkup() );
+			outputList = bbird.getElementsByTagName( 'OL' )[ 0 ];
+		
+			backgroundImage();
+		
+			//add events
+			addEvent( IDs.checkbox, 'click', clickVis );
+			addEvent( IDs.filters, 'click', clickFilter );
+			addEvent( IDs.controls, 'click', clickControl );
+			addEvent( document, 'keyup', readKey);
+
+			resize( state.size );
+			reposition( state.pos );
+			if ( state.load ) {
+				show();
+				document.getElementById( IDs.checkbox ).checked = true; 
+			}
+
+			scrollToBottom();
+
+			window[ NAMESPACE ].init = function() {
+				show();
+				window[ NAMESPACE ].error( [ '<b>', NAMESPACE, '</b> can only be initialized once' ] );
+			}
+
+			addEvent( window, 'unload', function() {
+				removeEvent( IDs.checkbox, 'click', clickVis );
+				removeEvent( IDs.filters, 'click', clickFilter );
+				removeEvent( IDs.controls, 'click', clickControl );
+				removeEvent( document, 'keyup', readKey );
+			});
+		});
 })();
