@@ -1,9 +1,11 @@
 /*
-  Blackbird - Open Source JavaScript Logging Utility
-  Author: G Scott Olson
-  Web: http://blackbirdjs.googlecode.com/
-       http://www.gscottolson.com/blackbird/
-  Version: 1.0
+	Blackbird - Open Source JavaScript Logging Utility
+	Author: G Scott Olson
+	Web: http://blackbirdjs.googlecode.com/
+	     http://www.gscottolson.com/blackbird/
+	Version: 1.0
+
+	The MIT License - Copyright (c) 2008 Blackbird Project
 */
 ( function() {
 	var NAMESPACE = 'log';

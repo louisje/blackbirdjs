@@ -4,6 +4,8 @@
   Web: http://blackbirdjs.googlecode.com/
        http://www.gscottolson.com/blackbird/
   Version: 1.0
+
+  The MIT License - Copyright (c) 2008 Blackbird Project
 */
 #blackbird { margin:0; padding:0; position:fixed; _position:absolute; font:11px/1.3 Consolas, 'Lucida Console', Monaco, monospace; _border:2px solid #BBB;  }
 #blackbird.bbTopLeft { top:0; left:0; _top:expression(eval(document.documentElement.scrollTop+8)); _left:expression(eval(document.documentElement.scrollLeft+8)); }
