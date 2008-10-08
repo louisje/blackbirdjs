@@ -3,6 +3,7 @@
   Author: G Scott Olson
   Web: http://blackbirdjs.googlecode.com/
        http://www.gscottolson.com/blackbird/
+  Version: 1.0
 */
 ( function() {
 	var NAMESPACE = 'log';
