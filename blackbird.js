@@ -43,26 +43,26 @@
 		newNode.id = IDs.blackbird;
 		newNode.style.display = 'none';
 		newNode.innerHTML = [
-			'<div class="header">',
-				'<div class="left">',
-					'<div id="', IDs.filters, '" class="filters" title="click to filter by message type">', spans.join( '' ), '</div>',
+			'<div class="bb-header">',
+				'<div class="bb-left">',
+					'<div id="', IDs.filters, '" class="bb-filters" title="click to filter by message type">', spans.join( '' ), '</div>',
 				'</div>',
-				'<div class="right">',
-					'<div id="', IDs.controls, '" class="controls">',
+				'<div class="bb-right">',
+					'<div id="', IDs.controls, '" class="bb-controls">',
 						'<span id="', IDs.size ,'" title="contract" op="resize"></span>',
-						'<span class="clear" title="clear" op="clear"></span>',
-						'<span class="close" title="close" op="close"></span>',
+						'<span class="bb-clear" title="clear" op="clear"></span>',
+						'<span class="bb-close" title="close" op="close"></span>',
 					'</div>',
 				'</div>',
 			'</div>',
-			'<div class="main">',
-				'<div class="left"></div><div class="mainBody">',
+			'<div class="bb-main">',
+				'<div class="bb-left"></div><div class="bb-mainBody">',
 					'<ol>', cache.join( '' ), '</ol>',
-				'</div><div class="right"></div>',
+				'</div><div class="bb-right"></div>',
 			'</div>',
-			'<div class="footer">',
-				'<div class="left"><label for="', IDs.checkbox, '"><input type="checkbox" id="', IDs.checkbox, '" />Visible on page load</label></div>',
-				'<div class="right"></div>',
+			'<div class="bb-footer">',
+				'<div class="bb-left"><label for="', IDs.checkbox, '"><input type="checkbox" id="', IDs.checkbox, '" />Visible on page load</label></div>',
+				'<div class="bb-right"></div>',
 			'</div>'
 		].join( '' );
 		return newNode;
@@ -86,11 +86,11 @@
 		if ( outputList ) {
 			var newMsg = document.createElement( 'LI' );
 			newMsg.className = type;
-			newMsg.innerHTML = [ '<span class="icon"></span>', content ].join( '' );
+			newMsg.innerHTML = [ '<span class="bb-icon"></span>', content ].join( '' );
 			outputList.appendChild( newMsg );
 			scrollToBottom();
 		} else {
-			cache.push( [ '<li class="', type, '"><span class="icon"></span>', content, '</li>' ].join( '' ) );
+			cache.push( [ '<li class="', type, '"><span class="bb-icon"></span>', content, '</li>' ].join( '' ) );
 		}
 	}
 	
