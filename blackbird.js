@@ -331,11 +331,6 @@
 
 			scrollToBottom();
 
-			window[ NAMESPACE ].init = function() {
-				show();
-				window[ NAMESPACE ].error( [ '<b>', NAMESPACE, '</b> can only be initialized once' ] );
-			}
-
 			addEvent( window, 'unload', function() {
 				removeEvent( IDs.checkbox, 'click', clickVis );
 				removeEvent( IDs.filters, 'click', clickFilter );
