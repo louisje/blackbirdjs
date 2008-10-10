@@ -36,7 +36,7 @@
 	function generateMarkup() { //build markup
 		var spans = [];
 		for ( type in messageTypes ) {
-			spans.push( [ '<span class="', type, '" type="', type, '"></span>'].join( '' ) );
+			spans.push( [ '<span class="bb-', type, '" type="', type, '"></span>'].join( '' ) );
 		}
 
 		var newNode = document.createElement( 'DIV' );
@@ -45,11 +45,11 @@
 		newNode.innerHTML = [
 			'<div class="bb-header">',
 				'<div class="bb-left">',
-					'<div id="', IDs.filters, '" class="bb-filters" title="click to filter by message type">', spans.join( '' ), '</div>',
+					'<div id="', IDs.filters, '" title="click to filter by message type">', spans.join( '' ), '</div>',
 				'</div>',
 				'<div class="bb-right">',
-					'<div id="', IDs.controls, '" class="bb-controls">',
-						'<span id="', IDs.size ,'" title="contract" op="resize"></span>',
+					'<div id="', IDs.controls, '">',
+						'<span id="', IDs.size ,'" op="resize"></span>',
 						'<span class="bb-clear" title="clear" op="clear"></span>',
 						'<span class="bb-close" title="close" op="close"></span>',
 					'</div>',
@@ -85,12 +85,12 @@
 		content = ( content.constructor == Array ) ? content.join( '' ) : content;
 		if ( outputList ) {
 			var newMsg = document.createElement( 'LI' );
-			newMsg.className = type;
+			newMsg.className = 'bb-' + type;
 			newMsg.innerHTML = [ '<span class="bb-icon"></span>', content ].join( '' );
 			outputList.appendChild( newMsg );
 			scrollToBottom();
 		} else {
-			cache.push( [ '<li class="', type, '"><span class="bb-icon"></span>', content, '</li>' ].join( '' ) );
+			cache.push( [ '<li class="bb-', type, '"><span class="bb-icon"></span>', content, '</li>' ].join( '' ) );
 		}
 	}
 	
@@ -131,22 +131,22 @@
 				for ( var i = 0; filters[ i ]; i++ ) {
 					var spanType = filters[ i ].getAttributeNode( 'type' ).nodeValue;
 
-					filters[ i ].className = ( oneActiveFilter || ( spanType == type ) ) ? spanType : spanType + 'Disabled';
+					filters[ i ].className = ( oneActiveFilter || ( spanType == type ) ) ? 'bb-' + spanType : 'bb-' + spanType + '-disabled';
 					messageTypes[ spanType ] = oneActiveFilter || ( spanType == type );
 				}
 			}
 			else {
 				messageTypes[ type ] = ! messageTypes[ type ];
-				span.className = ( messageTypes[ type ] ) ? type : type + 'Disabled';
+				span.className = ( messageTypes[ type ] ) ? 'bb-' + type : 'bb-' + type + '-disabled';
 			}
 
 			//build outputList's class from messageTypes object
 			var disabledTypes = [];
 			for ( type in messageTypes ) {
-				if ( ! messageTypes[ type ] ) disabledTypes.push( type );
+				if ( ! messageTypes[ type ] ) disabledTypes.push( 'bb-' + type );
 			}
 			disabledTypes.push( '' );
-			outputList.className = disabledTypes.join( 'Hidden ' );
+			outputList.className = disabledTypes.join( '-hidden ' );
 
 			scrollToBottom();
 		}
@@ -187,10 +187,10 @@
 		}
 				
 		switch ( position ) {
-			case 0: classes[ 0 ] = 'bbTopLeft'; break;
-			case 1: classes[ 0 ] = 'bbTopRight'; break;
-			case 2: classes[ 0 ] = 'bbBottomLeft'; break;
-			case 3: classes[ 0 ] = 'bbBottomRight'; break;
+			case 0: classes[ 0 ] = 'bb-top-left'; break;
+			case 1: classes[ 0 ] = 'bb-top-right'; break;
+			case 2: classes[ 0 ] = 'bb-bottom-left'; break;
+			case 3: classes[ 0 ] = 'bb-bottom-right'; break;
 		}
 		state.pos = position;
 		setState();
@@ -201,11 +201,11 @@
 			size = ( state && state.size == null ) ? 0 : ( state.size + 1 ) % 2;
 	  	}
 
-		classes[ 1 ] = ( size === 0 ) ? 'bbSmall' : 'bbLarge'
+		classes[ 1 ] = ( size === 0 ) ? 'bb-small' : 'bb-large'
 
 		var span = document.getElementById( IDs.size );
 		span.title = ( size === 1 ) ? 'small' : 'large';
-		span.className = span.title;	  
+		span.className = ( size === 1) ? 'bb-contract' : 'bb-expand';
 
 		state.size = size;
 		setState();
