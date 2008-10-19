@@ -61,7 +61,7 @@
 				'</div><div class="bb-right"></div>',
 			'</div>',
 			'<div class="bb-footer">',
-				'<div class="bb-left"><label for="', IDs.checkbox, '"><input type="checkbox" id="', IDs.checkbox, '" />Visible on page load</label></div>',
+				'<div class="bb-left" id="', IDs.checkbox, '"><span></span>Visible on page load</div>',
 				'<div class="bb-right"></div>',
 			'</div>'
 		].join( '' );
@@ -86,11 +86,12 @@
 		if ( outputList ) {
 			var newMsg = document.createElement( 'LI' );
 			newMsg.className = 'bb-' + type;
+			newMsg.title = type;
 			newMsg.innerHTML = [ '<span class="bb-icon"></span>', content ].join( '' );
 			outputList.appendChild( newMsg );
 			scrollToBottom();
 		} else {
-			cache.push( [ '<li class="bb-', type, '"><span class="bb-icon"></span>', content, '</li>' ].join( '' ) );
+			cache.push( [ '<li class="bb-', type, '" title="', type ,' message"><span class="bb-icon"></span>', content, '</li>' ].join( '' ) );
 		}
 	}
 	
@@ -131,13 +132,13 @@
 				for ( var i = 0; filters[ i ]; i++ ) {
 					var spanType = filters[ i ].getAttributeNode( 'type' ).nodeValue;
 
-					filters[ i ].className = ( oneActiveFilter || ( spanType == type ) ) ? 'bb-' + spanType : 'bb-' + spanType + '-disabled';
+					filters[ i ].className = ( oneActiveFilter || ( spanType == type ) ) ? 'bb-' + spanType : 'bb-' + spanType + ' bb-disabled';
 					messageTypes[ spanType ] = oneActiveFilter || ( spanType == type );
 				}
 			}
 			else {
 				messageTypes[ type ] = ! messageTypes[ type ];
-				span.className = ( messageTypes[ type ] ) ? 'bb-' + type : 'bb-' + type + '-disabled';
+				span.className = ( messageTypes[ type ] ) ? 'bb-' + type : 'bb-' + type + ' bb-disabled';
 			}
 
 			//build outputList's class from messageTypes object
@@ -155,8 +156,10 @@
 	function clickVis( evt ) {
 		if ( !evt ) evt = window.event;
 		var el = ( evt.target ) ? evt.target : evt.srcElement;
-
-		state.load = el.checked;
+		
+		var checkbox = ( el.tagName == 'SPAN' ) ? el : el.getElementsByTagName( 'SPAN' )[ 0 ];
+		checkbox.className = ( checkbox.className == '' ) ? 'checked' : '';
+		state.load = ( checkbox.className == 'checked' ) ? true : false;
 		setState();
 	}
 	
@@ -271,9 +274,18 @@
 	  } else obj.removeEventListener( type, fn, false );
 	}
 
+	
 	window[ NAMESPACE ] = {
 		toggle:
-			function() { ( isVisible() ) ? hide() : show(); },
+			function( visible ) { 
+				if ( visible === true || visible === false ) {
+					( visible ) ? show() : hide()
+				} else if ( isVisible() ) {
+					hide();
+				} else {
+					show();
+				}
+			},
 		resize:
 			function() { resize(); },
 		clear:
@@ -296,7 +308,7 @@
 					addMessage( 'error', '<b>ERROR:</b> Please specify a label for your profile statement' );
 				}
 				else if ( profiler[ label ] ) {
-					addMessage( 'profile', [ label, ': ', currentTime - profiler[ label ],	'ms' ].join( '' ) );
+					addMessage( 'profile', [ label, ': ', currentTime - profiler[ label ], 'ms' ].join( '' ) );
 					delete profiler[ label ];
 				}
 				else {
@@ -326,7 +338,7 @@
 			reposition( state.pos );
 			if ( state.load ) {
 				show();
-				document.getElementById( IDs.checkbox ).checked = true; 
+				document.getElementById( IDs.checkbox ).getElementsByTagName( 'SPAN')[ 0 ].className = 'checked'; 
 			}
 
 			scrollToBottom();
