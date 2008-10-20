@@ -173,7 +173,7 @@
 	}
 
 	function hide() { 
-	  bbird.style.display = 'none';
+		bbird.style.display = 'none';
 	}
 			
 	function show() {
@@ -202,7 +202,7 @@
 	function resize( size ) {
 		if ( size === undefined || size === null ) {
 			size = ( state && state.size == null ) ? 0 : ( state.size + 1 ) % 2;
-	  	}
+			}
 
 		classes[ 1 ] = ( size === 0 ) ? 'bb-small' : 'bb-large'
 
@@ -252,7 +252,7 @@
 			if ( visible && evt.shiftKey && evt.altKey ) clear();
 			else if	 (visible && evt.shiftKey ) reposition();
 			else if ( !evt.shiftKey && !evt.altKey ) {
-			  ( visible ) ? hide() : show();
+				( visible ) ? hide() : show();
 			}
 		}
 	}
@@ -271,7 +271,7 @@
 		if ( obj.detachEvent ) {
 			obj.detachEvent( 'on' + type, obj[ type + fn ] );
 			obj[ type + fn ] = null;
-	  } else obj.removeEventListener( type, fn, false );
+		} else obj.removeEventListener( type, fn, false );
 	}
 
 	
@@ -292,7 +292,7 @@
 			function() { clear(); },
 		move:
 			function() { reposition(); },
-		debug: 
+		debug:
 			function( msg ) { addMessage( 'debug', msg ); },
 		warn:
 			function( msg ) { addMessage( 'warn', msg ); },
@@ -300,7 +300,7 @@
 			function( msg ) { addMessage( 'info', msg ); },
 		error:
 			function( msg ) { addMessage( 'error', msg ); },
-		profile: 
+		profile:
 			function( label ) {
 				var currentTime = new Date(); //record the current time when profile() is executed
 				
@@ -319,35 +319,47 @@
 			}
 	}
 
-	addEvent( window, 'load', 
-		/* initialize Blackbird when the page loads */
-		function() {
-			var body = document.getElementsByTagName( 'BODY' )[ 0 ];
-			bbird = body.appendChild( generateMarkup() );
-			outputList = bbird.getElementsByTagName( 'OL' )[ 0 ];
-		
-			backgroundImage();
-		
-			//add events
-			addEvent( IDs.checkbox, 'click', clickVis );
-			addEvent( IDs.filters, 'click', clickFilter );
-			addEvent( IDs.controls, 'click', clickControl );
-			addEvent( document, 'keyup', readKey);
+	addEvent( window, 'load', function() { /* initialize Blackbird when the page loads */
+		var body = document.getElementsByTagName( 'BODY' )[ 0 ];
+		bbird = body.appendChild( generateMarkup() );
+		outputList = bbird.getElementsByTagName( 'OL' )[ 0 ];
+	
+		backgroundImage();
+	
+		//add events
+		addEvent( IDs.checkbox, 'click', clickVis );
+		addEvent( IDs.filters, 'click', clickFilter );
+		addEvent( IDs.controls, 'click', clickControl );
+		addEvent( document, 'keyup', readKey);
 
-			resize( state.size );
-			reposition( state.pos );
-			if ( state.load ) {
-				show();
-				document.getElementById( IDs.checkbox ).getElementsByTagName( 'SPAN')[ 0 ].className = 'checked'; 
-			}
+		resize( state.size );
+		reposition( state.pos );
+		if ( state.load ) {
+			show();
+			document.getElementById( IDs.checkbox ).getElementsByTagName( 'SPAN')[ 0 ].className = 'checked'; 
+		}
 
-			scrollToBottom();
+		scrollToBottom();
 
-			addEvent( window, 'unload', function() {
-				removeEvent( IDs.checkbox, 'click', clickVis );
-				removeEvent( IDs.filters, 'click', clickFilter );
-				removeEvent( IDs.controls, 'click', clickControl );
-				removeEvent( document, 'keyup', readKey );
-			});
+		addEvent( window, 'unload', function() {
+			removeEvent( IDs.checkbox, 'click', clickVis );
+			removeEvent( IDs.filters, 'click', clickFilter );
+			removeEvent( IDs.controls, 'click', clickControl );
+			removeEvent( document, 'keyup', readKey );
 		});
+	});
+	
+	window.blackbird = {
+		namespace:
+			function( newNS ) {
+				if ( newNS && newNS.constructor === String ) {
+					window[ newNS ] = {};
+					for ( method in window[ NAMESPACE ] ) {
+						window[ newNS ][ method ] = window[ NAMESPACE ][ method ];
+					}
+					delete window[ NAMESPACE ];
+					NAMESPACE = newNS;
+				}
+			}
+	}
 })();
